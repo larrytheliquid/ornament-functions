@@ -1,5 +1,6 @@
 module Data.IDesc where
 
+open import Data.Empty
 open import Data.Unit
 open import Data.Nat
 open import Data.Fin
@@ -9,6 +10,7 @@ open import Data.Sum
 open import Relation.Binary.PropositionalEquality
 
 data IDesc (I : Set) : Set₁ where
+  `0 : IDesc I
   `1 : IDesc I
   `X : (i : I) → IDesc I
   _`×_ : (l r : IDesc I) → IDesc I
@@ -17,6 +19,7 @@ data IDesc (I : Set) : Set₁ where
   `Π : (S : Set)(T : S → IDesc I) → IDesc I
 
 ⟦_⟧ : {I : Set} → IDesc I → (I → Set) → Set
+⟦ `0 ⟧ X = ⊥
 ⟦ `1 ⟧ X = ⊤
 ⟦ `X i ⟧ X = X i
 ⟦ T `× T' ⟧ X = ⟦ T ⟧ X × ⟦ T' ⟧ X
@@ -25,6 +28,7 @@ data IDesc (I : Set) : Set₁ where
 ⟦ `Π S T ⟧ X = (s : S) → ⟦ T s ⟧ X
 
 ⟦_⟧map : {I : Set} → (D : IDesc I) → {X Y : I → Set} → (f : ∀{i} → X i → Y i) → ⟦ D ⟧ X → ⟦ D ⟧ Y
+⟦ `0 ⟧map f ()
 ⟦ `1 ⟧map f tt = tt
 ⟦ `X i ⟧map f xs = f xs
 ⟦ l `× r ⟧map f (ls , rs) = ⟦ l ⟧map f ls  , ⟦ r ⟧map f rs

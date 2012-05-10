@@ -19,7 +19,7 @@ Vec A n = μ (VecD A) n
 open import Data.Nat
 `Vec : (A : Set) → ℕ → Set
 `Vec A zero = ⊤
-`Vec A (suc n) = Σ[ x ∶ A ] `Vec A n
+`Vec A (suc n) = A × `Vec A n
 
 eg : `Vec ℕ 3
 eg = 11 , 22 , 33 , tt
