@@ -12,6 +12,7 @@ open import Data.Fixpoint
 open import Relation.Binary.PropositionalEquality
 
 □ : ∀{I X} → (D : IDesc I)(xs : ⟦ D ⟧ X)(P : ∀ {i} → X i → Set) → Set
+□ `0 () P
 □ `1 tt P = ⊤
 □ (`X i) xs P = P xs
 □ (T `× T') (t , t') P = □ T t P × □ T' t' P
@@ -21,6 +22,7 @@ open import Relation.Binary.PropositionalEquality
 □ (`Π S T) f P = (s : S) → □ (T s) (f s) P
 
 all : ∀{I X} → (D : IDesc I)(P : {i : I} → X i → Set)(R : ∀{i} → (x : X i) → P x)(xs : ⟦ D ⟧ X) → □ D xs P
+all `0 P R ()
 all `1 P R tt = tt
 all (`X i) P R xs = R xs
 all (T `× T') P R (t , t') = all T P R t , all T' P R t'
@@ -43,6 +45,7 @@ module Elim {I : Set}
     induction (con xs) = m xs (hyps (R _) xs)
 
     hyps : (D : IDesc I) → (xs : ⟦ D ⟧ (μ R)) → □ D xs P
+    hyps `0 ()
     hyps `1 tt = tt
     hyps (`X i) xs = induction xs
     hyps (T `× T') (t , t') = hyps T t , hyps T' t'

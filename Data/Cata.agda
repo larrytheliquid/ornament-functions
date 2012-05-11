@@ -27,6 +27,7 @@ module Fold {I : Set}
     hyps : (D : IDesc I) → 
            (xs : ⟦ D ⟧ (μ R)) →
            ⟦ D ⟧ X
+    hyps `0 ()
     hyps `1 tt = tt
     hyps (`X i) xs = foldID xs
     hyps (T `× T') (t , t') = hyps T t , hyps T' t'
@@ -50,6 +51,7 @@ foldID' : ∀{I} →
            {i : I}(xs : μ R i) → X i
 foldID' {I} R X α xs = induction R (λ {i} _ → X i) (λ {i} xs hyps → α (help {R i}{i} xs hyps)) xs
          where help : {D : IDesc I}{i : I}(xs : ⟦ D ⟧ (μ R)) → □ D xs (λ {i} _ → X i) → ⟦ D ⟧ X
+               help {`0} () m
                help {`1} tt m = tt
                help {`X i} t m = m
                help {T `× T'}{i} (t , t') mm' = help {T}{i} t (proj₁ mm') , help {T'}{i} t' (proj₂ mm')
