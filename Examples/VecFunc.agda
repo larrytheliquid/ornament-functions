@@ -19,5 +19,5 @@ nil : ∀ {I i} {R : I → IDesc I} → ⟦ `μ (VecD (μ R i)) ze ⟧Type
 nil = con tt
 
 cons : ∀ {I i} {R : I → IDesc I} →
-  ⟦ `μ R i `→ `μ (VecD (μ R i)) ze `→ `μ (VecD (μ R i)) (su ze) ⟧Type
+  ⟦ `Π Nat (λ n → `μ R i `→ `μ (VecD (μ R i)) n `→ `μ (VecD (μ R i)) (su n)) ⟧Type
 cons x xs = con (x , xs)
