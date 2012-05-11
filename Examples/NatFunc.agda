@@ -13,7 +13,10 @@ open import Relation.Binary.PropositionalEquality
 NatD : ⊤ → IDesc ⊤
 NatD i = `1 `+ `X i
 
-ze : ⟦ μ NatD [ tt ]× `⊤ ⟧Type
+Nat : Set
+Nat = ⟦ μ NatD [ tt ]× `⊤ ⟧Type
+
+ze : Nat
 ze = (con (inj₁ tt)) , tt
 
 su : ⟦ μ NatD [ tt ]→ μ NatD [ tt ]× `⊤ ⟧Type
