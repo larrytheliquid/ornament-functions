@@ -6,6 +6,8 @@ open import Data.Product
 open import Data.IDesc
 open import Data.Fixpoint
 
+open import Ornament.Ornament
+
 infixr 20 _`×_ _`→_
 
 data Type : Set₁
@@ -21,4 +23,17 @@ data Type where
 ⟦ `Π S T ⟧Type = {s : ⟦ S ⟧Type} → ⟦ T s ⟧Type
 ⟦ `Σ S T ⟧Type = Σ[ s ∶ ⟦ S ⟧Type ] ⟦ T s ⟧Type
 ⟦ `μ D i ⟧Type = μ D i
+
+data FunctionOrn : Type → Set₁ where
+  _`→_ : ∀{S T}
+    (U : FunctionOrn S) (V : FunctionOrn T) →
+    FunctionOrn (S `→ T)
+
+  `μ : ∀{I I⁺} {D} {i} {f : I⁺ → I}
+    (O : Orn f D) (j : f ⁻¹ i) →
+    FunctionOrn (`μ D i)
+
+⟦_⟧FunctionOrn : ∀ {R} → FunctionOrn R → Set
+⟦ U `→ V ⟧FunctionOrn = ⟦ U ⟧FunctionOrn → ⟦ V ⟧FunctionOrn
+⟦ `μ {D = D} O (inv j) ⟧FunctionOrn = μ (⟦_⟧Orn₂ {D = D} O) j
 

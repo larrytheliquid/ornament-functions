@@ -21,3 +21,7 @@ ze = con (inj₁ tt)
 
 su : ⟦ Nat `→ Nat ⟧Type
 su n = con (inj₂ n)
+
+plus : ⟦ Nat `→ Nat `→ Nat ⟧Type
+plus (con (inj₁ tt)) n = n
+plus (con (inj₂ m)) n = su (plus m n)

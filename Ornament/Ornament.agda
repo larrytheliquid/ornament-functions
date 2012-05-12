@@ -57,3 +57,7 @@ Orn f D = (i⁺ : _) → Ornament f (D (f i⁺))
 
 ⟦_⁺_⟧Orn : ∀{I I⁺ f} D → Orn{I}{I⁺} f D → I⁺ → IDesc I⁺
 ⟦ D ⁺ orn ⟧Orn i⁺ = ⟦ orn i⁺ ⟧Orn
+
+⟦_⟧Orn₂ : ∀{I I⁺ f} {D} → Orn{I}{I⁺} f D → I⁺ → IDesc I⁺
+⟦ O ⟧Orn₂ j = ⟦ O j ⟧Orn
+
