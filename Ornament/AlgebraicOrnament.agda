@@ -28,6 +28,7 @@ forget : I⁺ → I
 forget = proj₁
 
 algOrnHelp : (D : IDesc I)(xs : ⟦ D ⟧ X) → Ornament forget D
+algOrnHelp `0 ()
 algOrnHelp `1 tt = `1
 algOrnHelp (`X i') xs = `X (inv (i' , xs))
 algOrnHelp (P `+ Q) (inj₁ x) = deleteInj₁ (algOrnHelp P x)
@@ -72,6 +73,7 @@ OAAO⊢ {i} {x} =
            (Fold.hyps ⟦ D ⁺ algOrn ⟧Orn
             (ornAlgebra) ⟦ algOrnHelp E (proj₁ xs) ⟧Orn
             (proj₂ xs)))
+    aux `0 (() , _) hs
     aux `1 (tt , tt) hs = refl
     aux (`X i0) (x' , con t) hs = hs
     aux (l `× r) (x' , t) hs = (cong₂ _,_ (aux l ((proj₁ x' , proj₁ t)) (proj₁ hs)) (aux r (proj₂ x' , proj₂ t) (proj₂ hs)))

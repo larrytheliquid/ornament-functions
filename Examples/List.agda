@@ -9,12 +9,11 @@ open import Ornament.Ornament
 
 open import Examples.Nat
 
-
-ListO : Set → Orn (λ tt → tt) NatD
-ListO A _ = `1 `+ insert A (λ _ → `X (inv tt))
+ListO : Set → Orn (λ { tt → tt }) NatD
+ListO A tt = `1 `+ insert A (λ _ → `X (inv tt))
 
 ListD : (A : Set) → ⊤ → IDesc ⊤
-ListD A i  = `1 `+ `Σ A (λ _ → `X i)
+ListD A tt  = `1 `+ `Σ A (λ _ → `X tt)
 
 List : ∀ A → Set
 List A = μ (ListD A) tt

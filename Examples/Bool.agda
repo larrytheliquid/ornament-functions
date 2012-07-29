@@ -11,7 +11,7 @@ open import Relation.Binary.PropositionalEquality
 
 
 BoolD : ⊤ → IDesc ⊤
-BoolD _ = `1 `+ `1
+BoolD tt = `1 `+ `1
 
 Bool : Set
 Bool = μ BoolD tt
