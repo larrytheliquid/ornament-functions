@@ -1,9 +1,10 @@
 open import Data.Empty
 open import Data.Unit hiding ( _≟_ ; _≤?_ )
-open import Data.Nat hiding ( _≟_ ; Ordering )
+open import Data.Nat hiding ( _≟_ ; Ordering ; _+_ ; _*_ ; _∸_ )
+open import Data.Integer hiding ( _≟_ )
 open import Data.Sum hiding ( map )
 open import Data.Product hiding ( map )
-open import Data.Fin hiding ( _+_ ; lift ; inject )
+open import Data.Fin hiding ( _+_ ; lift ; inject ; _-_ )
 open import Data.Fin.Props renaming ( _≟_ to _≟f_ )
 open import Data.Vec hiding ( concat ; [_] )
 open import Relation.Nullary
@@ -15,16 +16,21 @@ open import Function
 
 module Landfill where
 
-data Type : ℕ → Set where
-  `⊥ : Type 0
-  `⊤ : Type 1
-  _`⊎_ : ∀ {m n} (S : Type m) (T : Type n) → Type (m + n)
-  _`×_ : ∀ {m n} (S : Type m) (T : Type n) → Type (m * n)
+data Hole : ℤ → Set where
+  `⊥ : Hole (+ 0)
+  `? : Hole -[1+ 0 ]
+  `⊤ : Hole (+ 1)
+  _`⊎_ : ∀ {m n} (S : Hole m) (T : Hole n) → Hole (m + n)
+  _`×_ : ∀ {m n} (S : Hole m) (T : Hole n) → Hole (m * n)
 
-⟦_⟧ : ∀ {n} → Type n → Set
+⟦_⟧ : ∀ {n} → Hole n → Set
 ⟦ `⊥ ⟧ = ⊥
+⟦ `? ⟧ = ⊥
 ⟦ `⊤ ⟧ = ⊤
 ⟦ S `⊎ T ⟧ = ⟦ S ⟧ ⊎ ⟦ T ⟧
 ⟦ S `× T ⟧ = ⟦ S ⟧ × ⟦ T ⟧
+
+postulate
+  _`-_ : ∀{m n} → Hole m → Hole n → Hole (m - n)
 
 
