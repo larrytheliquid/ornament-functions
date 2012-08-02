@@ -30,7 +30,7 @@ data Hole : ℤ → Set where
 ⟦ S `⊎ T ⟧ = ⟦ S ⟧ ⊎ ⟦ T ⟧
 ⟦ S `× T ⟧ = ⟦ S ⟧ × ⟦ T ⟧
 
-postulate
-  _`-_ : ∀{m n} → Hole m → Hole n → Hole (m - n)
+_`-_ : ∀{m n} → Hole m → Hole n → Hole (m - n)
+S `- T = {!!}
 
 
