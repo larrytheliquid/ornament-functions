@@ -3,6 +3,7 @@ open import Data.Empty
 open import Data.Unit
 open import Data.Bool
 open import Data.Nat
+open import Data.Sum
 open import Data.Product
 open import Relation.Binary.PropositionalEquality
 
@@ -10,6 +11,13 @@ lte : ℕ → ℕ → Bool
 lte zero n = true
 lte (suc m) zero = false
 lte (suc m) (suc n) = lte m n
+
+data LteRaw : ⊤ → Set where
+  yes no : LteRaw tt
+  there : LteRaw tt → LteRaw tt
+
+LteRawDesc : Set → Set
+LteRawDesc X = ⊤ ⊎ ⊤ ⊎ X
 
 data LteP : ℕ → ℕ → Bool → Set where
   yes : (n : ℕ) → LteP zero n true
